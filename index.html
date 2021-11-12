@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <title>CodeCamp 2021</title>
+
+        <link rel="stylesheet" type="text/css" href="/app.css" />
+    </head>
+    <body onload="onload()">
+        <div id="container">
+            <canvas id="game">
+                Your browser is not supported!
+            </canvas>
+        </div>
+
+        <script id="main-vertex" type="application/vertex-shader-x">
+            attribute vec2 a_position;
+
+            uniform vec2 u_screensize;
+
+            void main() {
+                vec2 zeroToOne = a_position / u_screensize;
+                vec2 oneToTwo = zeroToOne * 2.0;
+                vec2 norm = oneToTwo - 1.0;
+
+                gl_Position = vec4(norm * vec2(1.0, -1.0), 0.0, 1.0);
+            }
+        </script>
+        <script id="main-fragment" type="application/fragment-shader-x">
+            precision mediump float;
+
+            uniform vec4 u_color;
+
+            void main() {
+                vec4 norm = u_color / vec4(255, 255, 255, 255);
+
+                gl_FragColor = norm;
+            }
+        </script>
+
+        <script type="text/javascript" src="/app.js"></script>
+        <script type="text/javascript" src="/game_object.js"></script>
+        <script type="text/javascript" src="/player_object.js"></script>
+    </body>
+</html>
