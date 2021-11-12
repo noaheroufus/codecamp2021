@@ -24,15 +24,15 @@ Game.prototype.init = function() {
     this.webgl.makeShader('main');
 
     // Add our game objects
-    this.objects.push(new PlayerObject(this.webgl, 0, 0, 4, 4));
+    this.objects.push(new PlayerObject(this.webgl, ( this.width / 2 ) - ( ( this.units*4 ) / 2), this.height - this.units*4, 4, 4));
 
     // Start the game loop
     window.requestAnimationFrame(this.loop.bind(this));
 }
 
-Game.prototype.update = function(delta) {
+Game.prototype.update = function(time, delta) {
     this.objects.forEach(function(obj, idx) {
-        obj.update(delta);
+        obj.update(time, delta);
     });
 }
 
@@ -49,7 +49,7 @@ Game.prototype.render = function() {
 Game.prototype.loop = function(ts) {
     let delta = ts - this.last;
 
-    this.update(delta);
+    this.update(ts, delta);
     this.render();
 
     this.last = ts;

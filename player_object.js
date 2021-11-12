@@ -10,7 +10,8 @@ function PlayerObject(webgl, x, y, width, height) {
 
     this.name = "Player";
     this.color = {r: 255, g: 255, b: 255, a: 255};
-    this.texture = new Texture(this.webgl, "./player_idle.gif");
+    //this.texture = new Texture(this.webgl, "./player_idle.gif");
+    this.texture = new TextureAnimated(this.webgl, "./images/sprite.png", 32, 32, 5, (1000/12));
 }
 
 PlayerObject.prototype.keepInBounds = function() {
@@ -21,7 +22,7 @@ PlayerObject.prototype.keepInBounds = function() {
     if(this.y >= game.height-this.height) this.y = game.height - this.height;
 }
 
-PlayerObject.prototype.update = function(delta) {
+PlayerObject.prototype.update = function(time, delta) {
     // Up
     if(game.keyPressed(188)) {
        this.y -= this.speed * delta;
@@ -40,6 +41,10 @@ PlayerObject.prototype.update = function(delta) {
     }
 
     this.keepInBounds();
+
+    if(this.texture) {
+        this.texture.update(time, delta);
+    }
 }
 
 PlayerObject.prototype.render = function() {
