@@ -15,6 +15,7 @@ const SHRUB_7 = 11;
 const SHRUB_8 = 12;
 const INV_BAR = 13;
 const ITEM_EXTENDER = 14;
+const BEAST_1 = 15;
 
 function LoadTextures(webgl) {
     // Player
@@ -39,4 +40,7 @@ function LoadTextures(webgl) {
     TEXTURES[SHRUB_6] = new Texture(webgl, SHRUB_6, "./images/Shrubs.png", 256, 32, 32, 32, 5, 0);
     TEXTURES[SHRUB_7] = new Texture(webgl, SHRUB_7, "./images/Shrubs.png", 256, 32, 32, 32, 6, 0);
     TEXTURES[SHRUB_8] = new Texture(webgl, SHRUB_8, "./images/Shrubs.png", 256, 32, 32, 32, 7, 0);
+
+    // Beasts
+    TEXTURES[BEAST_1] = new Texture(webgl, BEAST_1, "./images/Beasts.png", 256, 64, 64, 64, 0, 0);
 }
