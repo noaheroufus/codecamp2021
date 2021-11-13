@@ -7,11 +7,47 @@ function Game(canvas, width, height, units) {
     this.running = false;
     this.last = 0;
     this.keys = [];
+    this.mouse_x = 0;
+    this.mouse_y = 0;
+    this.mouse_attack = false;
 
     this.objects = [];
 }
 
 Game.prototype.init = function() {
+    // Event listeners
+    this.canvas.addEventListener('mousedown', function(ev) {
+        if(ev.button == 0) {
+            this.mouse_attack = true;
+        }
+    }.bind(this));
+    this.canvas.addEventListener('mouseup', function(ev) {
+        if(ev.button == 0) {
+            this.mouse_attack = false;
+        }
+    }.bind(this));
+    this.canvas.addEventListener('mousemove', function(ev) {
+        this.mouse_x = Math.max(0, Math.min(ev.offsetX, this.width));
+        this.mouse_y = Math.max(0, Math.min(ev.offsetY, this.height));
+    }.bind(this));
+
+    document.addEventListener('keydown', function(ev) {
+        let c = ev.keyCode;
+        let i = this.keys.indexOf(c);
+        if(i < 0) {
+            // Push the key to the table if it's not already there
+            this.keys.push(c);
+        }
+    }.bind(this));
+    document.addEventListener('keyup', function(ev) {
+        let c = ev.keyCode;
+        let i = this.keys.indexOf(c);
+        if(i >= 0) {
+            // Remove the key from the table if it's not already there
+            this.keys.splice(i, 1);
+        }
+    }.bind(this));
+
     // Set the canvas size
     this.canvas.width = this.width;
     this.canvas.height = this.height;
@@ -60,22 +96,5 @@ Game.prototype.loop = function(ts) {
 Game.prototype.keyPressed = function(keyCode) {
     return (this.keys.indexOf(keyCode) >= 0);
 }
-
-document.addEventListener('keydown', function(ev) {
-    let c = ev.keyCode;
-    let i = game.keys.indexOf(c);
-    if(i < 0) {
-        // Push the key to the table if it's not already there
-        game.keys.push(c);
-    }
-});
-document.addEventListener('keyup', function(ev) {
-    let c = ev.keyCode;
-    let i = game.keys.indexOf(c);
-    if(i >= 0) {
-        // Remove the key from the table if it's not already there
-        game.keys.splice(i, 1);
-    }
-});
 
 
