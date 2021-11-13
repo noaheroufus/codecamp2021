@@ -1,36 +1,37 @@
-function Inventory() {
-    this.width = game.units * 32;
-    this.height = game.units * 4;
+function ItemChanchange(x, y) {
+    this.x = x;
+    this.y = y;
+    this.translate_x = 0;
+    this.translate_y = 0;
+    this.width = game.units * 2;
+    this.height = game.units * 2;
 
-    this.x = (game.width / 2) - (this.width / 2);
-    this.y = game.units;
+    this.counter = 0;
+    this.increment = (Math.PI * 2) / 200;
 
-    this.texture = TEXTURES[INV_BAR];
-
-    this.slots = 8;
-    this.items = [];
-
-    this.items.push(new InventoryItem(this, TEXTURES[ITEM_EXTENDER]));
-    this.items.push(new InventoryItem(this, TEXTURES[ITEM_PASSCHANGE]));
-    this.items.push(new InventoryItem(this, TEXTURES[ITEM_POWER]));
-    this.items.push(new InventoryItem(this, TEXTURES[ITEM_CHANCHANGE]));
+    this.texture = TEXTURES[ITEM_CHANCHANGE];
 }
 
-Inventory.prototype.update = function(delta, time) {
-
+ItemChanchange.prototype.update = function(time, delta) {
+    this.translate_y = ( Math.abs(Math.sin(this.counter)) * 20) * -1;
+    this.counter += this.increment;
+    if(this.counter > Math.PI*2) this.counter = 0;
 }
 
-Inventory.prototype.render = function() {
+ItemChanchange.prototype.render = function() {
     let gl = game.webgl.context;
+
+    let x = this.x + this.translate_x;
+    let y = this.y + this.translate_y;
 
     // Buffer vertexes for a basic square matching the dimensions of this object
     let buffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-        this.x, this.y,
-        this.x+this.width, this.y,
-        this.x, this.y+this.height,
-        this.x+this.width, this.y+this.height
+        x, y,
+        x+this.width, y,
+        x, y+this.height,
+        x+this.width, y+this.height
     ]), gl.STATIC_DRAW);
 
     // Buffer indicies
@@ -66,9 +67,5 @@ Inventory.prototype.render = function() {
 
     // Draw it
     gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
-
-    // Draw Items
-    this.items.forEach(function(obj, idx) {
-        obj.render(game.webgl.shaders['main'], idx+1);
-    }.bind(this));
 }
+

@@ -272,6 +272,9 @@ Game.prototype.preparePlay= function() {
 
     // TEMP:
     this.objects.push(new ItemExtender(Math.random()*this.width, Math.random()*this.height));
+    this.objects.push(new ItemPasschange(Math.random()*this.width, Math.random()*this.height));
+    this.objects.push(new ItemPower(Math.random()*this.width, Math.random()*this.height));
+    this.objects.push(new ItemChanchange(Math.random()*this.width, Math.random()*this.height));
 
     // Add inventory bar.
     this.objects.push(new Inventory(this.webgl.context));

@@ -19,6 +19,9 @@ const BEAST_WEAKWIFI = 15;
 const BEAST_BLACKHATHACKER = 16;
 const BEAST_NOPOWER = 17;
 const BEAST_INTERFERENCE = 18;
+const ITEM_PASSCHANGE = 19;
+const ITEM_POWER = 20;
+const ITEM_CHANCHANGE = 21;
 
 function LoadTextures(webgl) {
     // Player
@@ -33,6 +36,9 @@ function LoadTextures(webgl) {
     // Inventory
     TEXTURES[INV_BAR] = new Texture(webgl, INV_BAR, "./images/Toolbar.png", 271, 41, 271, 41, 0, 0);
     TEXTURES[ITEM_EXTENDER] = new Texture(webgl, ITEM_EXTENDER, "./images/Tools.png", 128, 32, 32, 32, 0, 0);
+    TEXTURES[ITEM_PASSCHANGE] = new Texture(webgl, ITEM_PASSCHANGE, "./images/Tools.png", 128, 32, 32, 32, 1, 0);
+    TEXTURES[ITEM_POWER] = new Texture(webgl, ITEM_POWER, "./images/Tools.png", 128, 32, 32, 32, 2, 0);
+    TEXTURES[ITEM_CHANCHANGE] = new Texture(webgl, ITEM_CHANCHANGE, "./images/Tools.png", 128, 32, 32, 32, 3, 0);
 
     // Shrubs
     TEXTURES[SHRUB_1] = new Texture(webgl, SHRUB_1, "./images/Shrubs.png", 256, 32, 32, 32, 0, 0);
