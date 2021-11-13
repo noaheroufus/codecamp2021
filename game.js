@@ -19,7 +19,8 @@ function Game(canvas, width, height, units) {
 
     this.beast = null;
 
-    this.inventory = new Inventory();
+    this.inventory = null;
+
     this.descriptions = new Description();
     this.descriptionItem = document.createElement("div");
     this.descriptionItem.style.width = "15em";
@@ -165,7 +166,7 @@ Game.prototype.update = function(time, delta) {
         });
         if (this.mouse_attack) {
             if(this.victories < 4) {
-                this.state.changeState(this.state.playing, function(){});
+                this.state.changeState(this.state.playing, this.preparePlay.bind(this));
             } else {
                 this.state.changeState(this.state.victory, this.prepareVictory.bind(this));
             }
@@ -198,11 +199,13 @@ Game.prototype.render = function() {
             if(!obj) return;
             obj.render();
         });
+        if (this.inventory) this.inventory.render();
     } else if (this.state.getState() == this.state.reveal) {
         this.forest.forEach(function(obj, idx) {
             if(!obj) return;
             obj.render();
         });
+        if (this.inventory) this.inventory.render();
     } else if (this.state.getState() == this.state.fight) {
         this.forest.forEach(function(obj, idx) {
             if(!obj) return;
@@ -211,6 +214,7 @@ Game.prototype.render = function() {
         if(this.beast) {
             this.beast.render();
         }
+        if (this.inventory) this.inventory.render();
     } else if (this.state.getState() == this.state.slay) {
         this.forest.forEach(function(obj, idx) {
             if(!obj) return;
@@ -287,7 +291,8 @@ Game.prototype.preparePlay= function() {
     this.objects.push(new ItemChanchange(Math.random()*this.width, Math.random()*this.height));
 
     // Add inventory bar.
-    this.objects.push(new Inventory(this.webgl.context));
+    this.inventory = new Inventory(this.webgl.context);
+    this.inventory.y = this.units;
 }
 
 Game.prototype.prepareReveal = function() {
@@ -301,6 +306,7 @@ Game.prototype.prepareReveal = function() {
 }
 
 Game.prototype.prepareBeastFight = function() {
+    this.inventory.y = this.height/2;
 }
 
 Game.prototype.prepareBeastSlay = function() {
