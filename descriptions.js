@@ -11,10 +11,10 @@ function Description() {
 		this.titles.push("Wireless Interference");
 
 		this.descriptions = [];
-		this.descriptions.push("WiFi signal strength is low. Devices");
-		this.descriptions.push("TODO");
-		this.descriptions.push("TODO");
-		this.descriptions.push("TODO");
+		this.descriptions.push("WiFi signal strength is low. Devices.");
+		this.descriptions.push("A bad guy who wants your data.");
+		this.descriptions.push("None of the lights are on.");
+		this.descriptions.push("There are a lot of other networks around.");
 
 		this.WIFIEXTENDER = 0;
 		this.CHANGEPASSWORD = 1;
