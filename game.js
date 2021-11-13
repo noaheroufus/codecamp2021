@@ -65,8 +65,8 @@ Game.prototype.init = function() {
     // Add our game objects
     this.objects.push(new PlayerObject(this.webgl, ( this.width / 2 ) - ( ( this.units*4 ) / 2), this.height - this.units*4, 4, 4));
     // Tree Pool
-    for (let i=0; i<5; i++) {
-        this.objects.push(new TreeObject(this.webgl, (Math.random()*this.width)+(i*this.units), (Math.random()*this.height)+(i*this.units), 4, 4));
+    for (let i=0; i<=25; i++) {
+        this.objects.push(new TreeObject(this.webgl, (Math.random()*this.width)+(i*this.units), (Math.random()*this.height)+(i*this.units), 8, 8));
     }
 
     // Start the game loop
