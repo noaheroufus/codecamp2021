@@ -17,13 +17,18 @@
 
         <script id="main-vertex" type="application/vertex-shader-x">
             attribute vec2 a_position;
+            attribute vec2 a_texcoord;
 
             uniform vec2 u_screensize;
+
+            varying vec2 v_texcoord;
 
             void main() {
                 vec2 zeroToOne = a_position / u_screensize;
                 vec2 oneToTwo = zeroToOne * 2.0;
                 vec2 norm = oneToTwo - 1.0;
+
+                v_texcoord = a_texcoord;
 
                 gl_Position = vec4(norm * vec2(1.0, -1.0), 0.0, 1.0);
             }
@@ -32,16 +37,24 @@
             precision mediump float;
 
             uniform vec4 u_color;
+            uniform sampler2D u_tex;
+
+            varying vec2 v_texcoord;
 
             void main() {
                 vec4 norm = u_color / vec4(255, 255, 255, 255);
+                vec4 tex = texture2D(u_tex, v_texcoord);
 
-                gl_FragColor = norm;
+                gl_FragColor = tex;
             }
         </script>
 
         <script type="text/javascript" src="/app.js"></script>
-        <script type="text/javascript" src="/game_object.js"></script>
+        <script type="text/javascript" src="/game.js"></script>
+        <script type="text/javascript" src="/webgl.js"></script>
+        <script type="text/javascript" src="/texture.js"></script>
+        <script type="text/javascript" src="/texture_animated.js"></script>
         <script type="text/javascript" src="/player_object.js"></script>
+
     </body>
 </html>
