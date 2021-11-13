@@ -27,7 +27,7 @@ function LoadTextures(webgl) {
     TEXTURES[TREE_3] = new Texture(webgl, TREE_3, "./images/Trees.png", 512, 128, 128, 128, 2, 0);
 
     // Inventory
-    TEXTURES[INV_BAR] = new Texture(webgl, INV_BAR, "./images/Inventory.png", 264, 34, 264, 34, 0, 0);
+    TEXTURES[INV_BAR] = new Texture(webgl, INV_BAR, "./images/Toolbar.png", 271, 41, 271, 41, 0, 0);
     TEXTURES[ITEM_EXTENDER] = new Texture(webgl, ITEM_EXTENDER, "./images/Tools.png", 128, 32, 32, 32, 0, 0);
 
     // Shrubs
