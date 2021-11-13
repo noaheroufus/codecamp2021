@@ -13,7 +13,9 @@ const SHRUB_5 = 9;
 const SHRUB_6 = 10;
 const SHRUB_7 = 11;
 const SHRUB_8 = 12;
-const BEAST_1 = 13;
+const INV_BAR = 13;
+const ITEM_EXTENDER = 14;
+const BEAST_1 = 15;
 
 function LoadTextures(webgl) {
     // Player
@@ -24,6 +26,10 @@ function LoadTextures(webgl) {
     TEXTURES[TREE_1] = new Texture(webgl, TREE_1, "./images/Trees.png", 512, 128, 128, 128, 0, 0);
     TEXTURES[TREE_2] = new Texture(webgl, TREE_2, "./images/Trees.png", 512, 128, 128, 128, 1, 0);
     TEXTURES[TREE_3] = new Texture(webgl, TREE_3, "./images/Trees.png", 512, 128, 128, 128, 2, 0);
+
+    // Inventory
+    TEXTURES[INV_BAR] = new Texture(webgl, INV_BAR, "./images/Toolbar.png", 271, 41, 271, 41, 0, 0);
+    TEXTURES[ITEM_EXTENDER] = new Texture(webgl, ITEM_EXTENDER, "./images/Tools.png", 128, 32, 32, 32, 0, 0);
 
     // Shrubs
     TEXTURES[SHRUB_1] = new Texture(webgl, SHRUB_1, "./images/Shrubs.png", 256, 32, 32, 32, 0, 0);

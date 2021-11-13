@@ -17,6 +17,8 @@ function Game(canvas, width, height, units) {
     this.state = new GameState();
 
     this.beast = null;
+
+    this.inventory = new Inventory();
 }
 
 Game.prototype.init = function() {
@@ -215,12 +217,18 @@ Game.prototype.preparePlay= function() {
     for (let i=0; i<=100; i++) {
         this.forest.push(new ShrubObject(this.webgl, (Math.random()*this.width)-(this.units*1), (Math.random()*this.height)-(this.units*1), 2, 2));
     }
-    this.forest.sort((a,b) => (a.y+a.height > b.y+b.height) ? 1 : -1);
+    this.objects.sort((a,b) => (a.y+a.height > b.y+b.height) ? 1 : -1);
 
     // Decide on Network Beast
     this.beast = new NetworkBeastObject(this.webgl, this.width/2, this.height/2, 8, 8);
     // TODO: Generate the appropriate Tools to find on the way
     this.tools = [];
+
+    // TEMP:
+    this.objects.push(new ItemExtender(Math.random()*this.width, Math.random()*this.height));
+
+    // Add inventory bar.
+    this.objects.push(new Inventory(this.webgl.context));
 }
 
 Game.prototype.prepareReveal = function() {
