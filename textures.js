@@ -15,7 +15,13 @@ const SHRUB_7 = 11;
 const SHRUB_8 = 12;
 const INV_BAR = 13;
 const ITEM_EXTENDER = 14;
-const BEAST_1 = 15;
+const BEAST_WEAKWIFI = 15;
+const BEAST_BLACKHATHACKER = 16;
+const BEAST_NOPOWER = 17;
+const BEAST_INTERFERENCE = 18;
+const ITEM_PASSCHANGE = 19;
+const ITEM_POWER = 20;
+const ITEM_CHANCHANGE = 21;
 
 function LoadTextures(webgl) {
     // Player
@@ -30,6 +36,9 @@ function LoadTextures(webgl) {
     // Inventory
     TEXTURES[INV_BAR] = new Texture(webgl, INV_BAR, "./images/Toolbar.png", 271, 41, 271, 41, 0, 0);
     TEXTURES[ITEM_EXTENDER] = new Texture(webgl, ITEM_EXTENDER, "./images/Tools.png", 128, 32, 32, 32, 0, 0);
+    TEXTURES[ITEM_PASSCHANGE] = new Texture(webgl, ITEM_PASSCHANGE, "./images/Tools.png", 128, 32, 32, 32, 1, 0);
+    TEXTURES[ITEM_POWER] = new Texture(webgl, ITEM_POWER, "./images/Tools.png", 128, 32, 32, 32, 2, 0);
+    TEXTURES[ITEM_CHANCHANGE] = new Texture(webgl, ITEM_CHANCHANGE, "./images/Tools.png", 128, 32, 32, 32, 3, 0);
 
     // Shrubs
     TEXTURES[SHRUB_1] = new Texture(webgl, SHRUB_1, "./images/Shrubs.png", 256, 32, 32, 32, 0, 0);
@@ -42,5 +51,8 @@ function LoadTextures(webgl) {
     TEXTURES[SHRUB_8] = new Texture(webgl, SHRUB_8, "./images/Shrubs.png", 256, 32, 32, 32, 7, 0);
 
     // Beasts
-    TEXTURES[BEAST_1] = new Texture(webgl, BEAST_1, "./images/Beasts.png", 256, 64, 64, 64, 0, 0);
+    TEXTURES[BEAST_WEAKWIFI] = new Texture(webgl, BEAST_WEAKWIFI, "./images/Beasts.png", 256, 64, 64, 64, 0, 0);
+    TEXTURES[BEAST_BLACKHATHACKER] = new Texture(webgl, BEAST_BLACKHATHACKER, "./images/Beasts.png", 256, 64, 64, 64, 1, 0);
+    TEXTURES[BEAST_NOPOWER] = new Texture(webgl, BEAST_NOPOWER, "./images/Beasts.png", 256, 64, 64, 64, 2, 0);
+    TEXTURES[BEAST_INTERFERENCE] = new Texture(webgl, BEAST_INTERFERENCE, "./images/Beasts.png", 256, 64, 64, 64, 3, 0);
 }

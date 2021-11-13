@@ -1,4 +1,4 @@
-function ItemExtender(x, y) {
+function ItemChanchange(x, y) {
     this.x = x;
     this.y = y;
     this.translate_x = 0;
@@ -9,16 +9,16 @@ function ItemExtender(x, y) {
     this.counter = 0;
     this.increment = (Math.PI * 2) / 200;
 
-    this.texture = TEXTURES[ITEM_EXTENDER];
+    this.texture = TEXTURES[ITEM_CHANCHANGE];
 }
 
-ItemExtender.prototype.update = function(time, delta) {
+ItemChanchange.prototype.update = function(time, delta) {
     this.translate_y = ( Math.abs(Math.sin(this.counter)) * 20) * -1;
     this.counter += this.increment;
     if(this.counter > Math.PI*2) this.counter = 0;
 }
 
-ItemExtender.prototype.render = function() {
+ItemChanchange.prototype.render = function() {
     let gl = game.webgl.context;
 
     let x = this.x + this.translate_x;

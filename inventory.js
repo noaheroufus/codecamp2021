@@ -11,11 +11,9 @@ function Inventory() {
     this.items = [];
 
     this.items.push(new InventoryItem(this, TEXTURES[ITEM_EXTENDER]));
-    this.items.push(new InventoryItem(this, TEXTURES[ITEM_EXTENDER]));
-    this.items.push(new InventoryItem(this, TEXTURES[ITEM_EXTENDER]));
-    this.items.push(new InventoryItem(this, TEXTURES[ITEM_EXTENDER]));
-    this.items.push(new InventoryItem(this, TEXTURES[ITEM_EXTENDER]));
-    this.items.push(new InventoryItem(this, TEXTURES[ITEM_EXTENDER]));
+    this.items.push(new InventoryItem(this, TEXTURES[ITEM_PASSCHANGE]));
+    this.items.push(new InventoryItem(this, TEXTURES[ITEM_POWER]));
+    this.items.push(new InventoryItem(this, TEXTURES[ITEM_CHANCHANGE]));
 }
 
 Inventory.prototype.update = function(delta, time) {

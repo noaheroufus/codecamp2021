@@ -18,7 +18,7 @@ GameState.prototype.getState = function() {
 GameState.prototype.changeState = function(state, callback) {
     this.current_state = state;
 
-    game.objects = [];
+    //game.objects = [];
 
     callback();
 }
