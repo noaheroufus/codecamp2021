@@ -7,12 +7,14 @@ function TextureAnimated(webgl, id, name, frame_width, frame_height, frame_count
     this.frame_height = frame_height;
     this.frame_count = frame_count;
     this.speed = speed;
+    this.only_once = only_once;
+
     this.frame_index = 0;
     this.last_updated = 0;
 
     this.texture = null;
 
-    this.only_once = only_once;
+    this.ready = false;
 
     this.load();
 }
@@ -38,6 +40,7 @@ TextureAnimated.prototype.load = function() {
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texSrc);
 
         this.texture = {tex: tex, width: this.width, height: this.height};
+        this.ready = true;
     }.bind(this);
     texSrc.src = this.name;
 }
@@ -57,6 +60,8 @@ TextureAnimated.prototype.update = function(time, delta, owner) {
 }
 
 TextureAnimated.prototype.render = function(shader) {
+    if(!this.ready) return;
+
     let gl = this.webgl.context;
 
     let tex_buffer = gl.createBuffer();
