@@ -1,5 +1,6 @@
-function TextureAnimated(webgl, name, frame_width, frame_height, frame_count, speed) {
+function TextureAnimated(webgl, id, name, frame_width, frame_height, frame_count, speed, only_once) {
     this.webgl = webgl;
+    this.id = id;
     this.name = name;
 
     this.frame_width = frame_width;
@@ -10,6 +11,8 @@ function TextureAnimated(webgl, name, frame_width, frame_height, frame_count, sp
     this.last_updated = 0;
 
     this.texture = null;
+
+    this.only_once = only_once;
 
     this.load();
 }
@@ -24,6 +27,7 @@ TextureAnimated.prototype.load = function() {
     var texSrc = new Image();
     texSrc.onload = function() {
         let tex = gl.createTexture();
+        gl.activeTexture(gl.TEXTURE0 + this.id);
         gl.bindTexture(gl.TEXTURE_2D, tex);
 
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -38,10 +42,13 @@ TextureAnimated.prototype.load = function() {
     texSrc.src = this.name;
 }
 
-TextureAnimated.prototype.update = function(time, delta) {
+TextureAnimated.prototype.update = function(time, delta, owner) {
     if(time > (this.last_updated + this.speed )) {
         this.frame_index++;
         if(this.frame_index >= this.frame_count) {
+            if(this.only_once && owner instanceof PlayerObject) {
+                owner.idle();
+            }
             this.frame_index = 0;
         }
 
@@ -74,5 +81,5 @@ TextureAnimated.prototype.render = function(shader) {
     gl.bindBuffer(gl.ARRAY_BUFFER, tex_buffer);
     gl.vertexAttribPointer(vsTex, 2, gl.FLOAT, false, 0, 0);
 
-    gl.uniform1i(fsTex, 0);
+    gl.uniform1i(fsTex, this.id);
 }

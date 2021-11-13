@@ -6,12 +6,21 @@ function PlayerObject(webgl, x, y, width, height) {
     this.width = width * game.units;
     this.height = height * game.units;
 
-    this.speed = 0.20;
+    this.speed = 0.10;
+    this.walking = false;
+    this.attacking = false;
+    this.performing_action = false;
 
-    this.name = "Player";
+    this.is_player = true;
     this.color = {r: 255, g: 255, b: 255, a: 255};
-    //this.texture = new Texture(this.webgl, "./player_idle.gif");
-    this.texture = new TextureAnimated(this.webgl, "./images/Player_Idle.png", 32, 32, 4, (1000/6));
+
+    //this.texture = new Texture(this.webgl, "./images/Player_Idle.png");
+    this.textures = [
+        // (webgl_context, id, location, frame_width, frame_height, frame_count, frame_rate, animate_only_once)
+        new TextureAnimated(this.webgl, 0, "./images/Player_Idle.png", 32, 32, 4, (1000/6), false),
+        new TextureAnimated(this.webgl, 1, "./images/Player_Attack.png", 32, 32, 4, (1000/6), true),
+    ];
+    this.texture = this.textures[0];
 }
 
 PlayerObject.prototype.keepInBounds = function() {
@@ -23,28 +32,39 @@ PlayerObject.prototype.keepInBounds = function() {
 }
 
 PlayerObject.prototype.update = function(time, delta) {
+    this.walking = false;
+
     // Up
     if(game.keyPressed(188)) {
-       this.y -= this.speed * delta;
+        this.walking = true;
+        this.y -= this.speed * delta;
     }
     // Down
     if(game.keyPressed(79)) {
-       this.y += this.speed * delta;
+        this.walking = true;
+        this.y += this.speed * delta;
     }
     // Right
     if(game.keyPressed(69)) {
-       this.x += this.speed * delta;
+        this.walking = true;
+        this.x += this.speed * delta;
     }
     // Left
     if(game.keyPressed(65)) {
-       this.x -= this.speed * delta;
+        this.walking = true;
+        this.x -= this.speed * delta;
+    }
+
+    if(!this.performing_action && game.mouse_attack) {
+        this.attack();
     }
 
     this.keepInBounds();
 
     if(this.texture) {
-        this.texture.update(time, delta);
+        this.texture.update(time, delta, this);
     }
+
 }
 
 PlayerObject.prototype.render = function() {
@@ -98,5 +118,21 @@ PlayerObject.prototype.render = function() {
 
     // Draw it
     gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+}
+
+PlayerObject.prototype.attack = function() {
+    this.textures[1].frame_index = 1; // Reset to 1
+    this.texture = this.textures[1];
+
+    this.performing_action = true;
+    this.attacking = true;
+}
+
+PlayerObject.prototype.idle = function() {
+    this.textures[0].frame_index = 1;
+    this.texture = this.textures[0];
+
+    this.performing_action = false;
+    this.attacking = false;
 }
 
