@@ -2,6 +2,7 @@ let TEXTURES = [];
 
 const PLAYER_IDLE = 0;
 const PLAYER_ATTACK = 1;
+const TREE_1 = 2;
 
 function LoadTextures(webgl) {
     // Player
@@ -9,4 +10,5 @@ function LoadTextures(webgl) {
     TEXTURES[PLAYER_ATTACK] = new TextureAnimated(webgl, PLAYER_ATTACK, "./images/Player_Attack.png", 32, 32, 4, (1000/6), true);
 
     //
+    TEXTURES[TREE_1] = new Texture(webgl, TREE_1, "./images/Trees.png", 128, 1024, 128, 128, 0, 0);
 }
