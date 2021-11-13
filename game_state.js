@@ -3,6 +3,10 @@ function GameState() {
     this.dead       = 0;
     this.title      = 1;
     this.playing    = 2;
+    this.reveal     = 3;
+    this.fight      = 4;
+    this.slay       = 5;
+    this.victory    = 6;
 
     this.current_state = this.loading;
 }
@@ -18,5 +22,3 @@ GameState.prototype.changeState = function(state, callback) {
 
     callback();
 }
-
-
