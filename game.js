@@ -22,12 +22,17 @@ function Game(canvas, width, height, units) {
     this.inventory = new Inventory();
     this.descriptions = new Description();
     this.descriptionItem = document.createElement("div");
-    this.descriptionItem.style.width = "200px";
-    this.descriptionItem.style.height = "200px";
-    this.descriptionItem.style.background = "red";
+    this.descriptionItem.style.width = "15em";
+    this.descriptionItem.style.height = "auto";
+    this.descriptionItem.style.padding = "1em";
+    this.descriptionItem.style.textAlign = "center";
+    this.descriptionItem.style.background = "#4c4c4c";
     this.descriptionItem.style.color = "white";
+    this.descriptionItem.style.borderRadius = "6px";
+    this.descriptionItem.style.border= "2px solid yellow";
     this.descriptionItem.style.position = "absolute";
-    this.canvas.appendChild(this.descriptionItem);
+    this.descriptionItem.style.display = "none";
+    //this.canvas.appendChild(this.descriptionItem);
     document.getElementById("container").appendChild(this.descriptionItem);
 
     this.covered = 1.0;
@@ -136,9 +141,12 @@ Game.prototype.update = function(time, delta) {
         // Hover descriptions
         if(this.within(this.mouse_x, this.mouse_y, this.beast.x, this.beast.y, this.beast.width, this.beast.height)) {
             this.descriptionItem.style.display = "block";
-            this.descriptionItem.style.left = this.mouse_x+(this.canvasRect.left/2)+'px';
+            this.descriptionItem.style.left = this.mouse_x-64+(this.canvasRect.left/2)+'px';
             this.descriptionItem.style.top = this.mouse_y+this.canvasRect.top+'px';
-            this.descriptionItem.innerHTML = this.descriptions.titles[this.beast.version];
+            this.descriptionItem.innerHTML = '<strong>' +
+                this.descriptions.titles[this.beast.version] +
+                '</strong><br /><br />' +
+                this.descriptions.descriptions[this.beast.version];
         } else {
             this.descriptionItem.style.display = "none";
         }
