@@ -7,13 +7,13 @@ function ItemExtender(x, y) {
     this.height = game.units * 2;
 
     this.counter = 0;
-    this.increment = (Math.PI * 2) / 100;
+    this.increment = (Math.PI * 2) / 200;
 
     this.texture = TEXTURES[ITEM_EXTENDER];
 }
 
 ItemExtender.prototype.update = function(time, delta) {
-    this.translate_y = ( Math.abs(Math.sin(this.counter)) * 25) * -1;
+    this.translate_y = ( Math.abs(Math.sin(this.counter)) * 20) * -1;
     this.counter += this.increment;
     if(this.counter > Math.PI*2) this.counter = 0;
 }
