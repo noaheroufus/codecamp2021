@@ -1,8 +1,14 @@
-function Texture(webgl, id, name) {
+function Texture(webgl, id, name, frame_width, frame_height, offset_x, offset_y) {
     this.webgl = webgl;
     this.id = id;
     this.name = name;
+    this.frame_width = frame_width;
+    this.frame_height = frame_height;
+    this.offset_x = offset_x;
+    this.offset_y = offset_y;
     this.texture = null;
+
+    this.ready = false;
 
     this.load();
 }
@@ -13,11 +19,12 @@ Texture.prototype.getTex = function() {
 
 Texture.prototype.load = function() {
     let gl = this.webgl.context;
+    let me = this
 
     var texSrc = new Image();
     texSrc.onload = function() {
         let tex = gl.createTexture();
-        gl.activeTexture(gl.TEXTURE+this.id);
+        gl.activeTexture(gl.TEXTURE0+this.id);
         gl.bindTexture(gl.TEXTURE_2D, tex);
 
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -27,23 +34,35 @@ Texture.prototype.load = function() {
 
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texSrc);
 
-        this.texture = {tex: tex, width: this.width, height: this.height};
-    }.bind(this);
+        me.texture = {tex: tex, width: this.width, height: this.height};
+        me.ready = true;
+    };
     texSrc.src = this.name;
 }
 
+Texture.prototype.update = function(time, delta, owner) {
+}
+
 Texture.prototype.render = function(shader) {
+    if(!this.ready) return;
+
     let gl = this.webgl.context;
 
     let tex_buffer = gl.createBuffer();
+
+    let x_margin = (this.offset_x * this.frame_width) / this.texture.width;
+    let x_width = this.frame_width / this.texture.width;
+    let y_margin = (this.offset_y * this.frame_height) / this.texture.height;
+    let y_height = this.frame_height / this.texture.height;
+
     gl.bindBuffer(gl.ARRAY_BUFFER, tex_buffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-        0.0, 0.0,
-        1.0, 0.0,
-        0.0, 1.0,
-        1.0, 1.0,
-        0.0, 1.0,
-        1.0, 0.0,
+        x_margin, y_margin,
+        x_margin+x_width, y_margin,
+        x_margin, y_margin+y_height,
+        x_margin+x_width, y_margin+y_height,
+        x_margin, y_margin+y_height,
+        x_margin+x_width, y_margin,
     ]), gl.STATIC_DRAW);
 
     vsTex = gl.getAttribLocation(shader, 'a_texcoord');
