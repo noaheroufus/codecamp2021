@@ -19,6 +19,13 @@ function Game(canvas, width, height, units) {
     this.beast = null;
 
     this.inventory = new Inventory();
+    this.descriptions = new Description();
+    this.descriptionItem = document.createElement("div");
+    this.descriptionItem.style.width = "100px";
+    this.descriptionItem.style.height = "100px";
+    this.descriptionItem.style.background = "red";
+    this.descriptionItem.style.position = "absolute";
+    this.canvas.appendChild(this.descriptionItem);
 }
 
 Game.prototype.init = function() {
@@ -114,6 +121,12 @@ Game.prototype.update = function(time, delta) {
         this.objects.forEach(function(obj, idx) {
             obj.update(time, delta);
         });
+        // Hover descriptions
+        if(this.within(this.mouse_x, this.mouse_y, this.beast.x, this.beast.y, this.beast.width, this.beast.height)) {
+            this.descriptionItem.style.left = this.mouse_x+'px';
+            this.descriptionItem.style.top = this.mouse_y+'px';
+            this.descriptionItem.innerHTML = this.descriptions.titles[this.beast.version];
+        }
         if (this.mouse_attack) {
             this.state.changeState(this.state.slay, this.prepareBeastSlay);
             this.mouse_attack = false;
@@ -246,4 +259,8 @@ Game.prototype.prepareVictory = function() {
 Game.prototype.prepareDead= function() {
     // Add our dead state objects
     // TODO
+}
+
+Game.prototype.within = function(a_x, a_y, b_x, b_y, width, height) {
+    return (a_x >= b_x && a_x <= b_x+width && a_y >= b_y && a_y <= b_y+height);
 }

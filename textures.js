@@ -15,7 +15,8 @@ const SHRUB_7 = 11;
 const SHRUB_8 = 12;
 const INV_BAR = 13;
 const ITEM_EXTENDER = 14;
-const BEAST_1 = 15;
+const BEAST_WEAKWIFI = 15;
+const BEAST_BLACKHATHACKER = 16;
 
 function LoadTextures(webgl) {
     // Player
@@ -42,5 +43,6 @@ function LoadTextures(webgl) {
     TEXTURES[SHRUB_8] = new Texture(webgl, SHRUB_8, "./images/Shrubs.png", 256, 32, 32, 32, 7, 0);
 
     // Beasts
-    TEXTURES[BEAST_1] = new Texture(webgl, BEAST_1, "./images/Beasts.png", 256, 64, 64, 64, 0, 0);
+    TEXTURES[BEAST_WEAKWIFI] = new Texture(webgl, BEAST_WEAKWIFI, "./images/Beasts.png", 256, 64, 64, 64, 0, 0);
+    TEXTURES[BEAST_BLACKHATHACKER] = new Texture(webgl, BEAST_BLACKHATHACKER, "./images/Beasts.png", 256, 64, 64, 64, 1, 0);
 }

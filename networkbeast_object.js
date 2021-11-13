@@ -7,8 +7,8 @@ function NetworkBeastObject(webgl, x, y, width, height) {
     this.height = height * game.units;
 
     this.color = {r: 255, g: 255, b: 255, a: 255};
-    this.version = [BEAST_1, BEAST_1][Math.floor(Math.random()*2)];
-    this.texture = TEXTURES[this.version];
+    this.version = [Math.floor(Math.random()*2)];
+    this.texture = TEXTURES[[BEAST_WEAKWIFI, BEAST_BLACKHATHACKER][this.version]];
 }
 
 NetworkBeastObject.prototype.update = function(time, delta) {
