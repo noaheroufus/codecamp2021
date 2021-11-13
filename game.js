@@ -126,8 +126,9 @@ Game.prototype.preparePlay= function() {
     this.objects.push(new PlayerObject(this.webgl, ( this.width / 2 ) - ( ( this.units*4 ) / 2), this.height - this.units*4, 4, 4));
     // Tree Pool
     for (let i=0; i<=200; i++) {
-        this.objects.push(new TreeObject(this.webgl, (Math.random()*this.width)-(this.units*4), (Math.random()*this.height)-(this.units*4), 8, 8));
+        this.objects.push(new TreeObject(this.webgl, (Math.random()*this.width)-(this.units*4), (Math.random()*this.height)-(this.units*4), 8, 8, 4, 8));
     }
+    this.objects.sort((a,b) => (a.y+a.height > b.y+b.height) ? 1 : -1);
 }
 
 Game.prototype.prepareDead= function() {
