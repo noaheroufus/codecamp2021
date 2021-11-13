@@ -9,6 +9,6 @@ function LoadTextures(webgl) {
     TEXTURES[PLAYER_IDLE] = new TextureAnimated(webgl, PLAYER_IDLE, "./images/Player_Idle.png", 32, 32, 4, (1000/6), false);
     TEXTURES[PLAYER_ATTACK] = new TextureAnimated(webgl, PLAYER_ATTACK, "./images/Player_Attack.png", 32, 32, 4, (1000/6), true);
 
-    //
-    TEXTURES[TREE_1] = new Texture(webgl, TREE_1, "./images/Trees.png", 128, 1024, 128, 128, 0, 0);
+    // Trees
+    TEXTURES[TREE_1] = new Texture(webgl, TREE_1, "./images/Trees.png", 256, 128, 128, 128, 0, 0);
 }
