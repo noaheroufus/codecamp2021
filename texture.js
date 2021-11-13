@@ -1,5 +1,6 @@
-function Texture(webgl, name) {
+function Texture(webgl, id, name) {
     this.webgl = webgl;
+    this.id = id;
     this.name = name;
     this.texture = null;
 
@@ -16,6 +17,7 @@ Texture.prototype.load = function() {
     var texSrc = new Image();
     texSrc.onload = function() {
         let tex = gl.createTexture();
+        gl.activeTexture(gl.TEXTURE+this.id);
         gl.bindTexture(gl.TEXTURE_2D, tex);
 
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -51,5 +53,5 @@ Texture.prototype.render = function(shader) {
     gl.bindBuffer(gl.ARRAY_BUFFER, tex_buffer);
     gl.vertexAttribPointer(vsTex, 2, gl.FLOAT, false, 0, 0);
 
-    gl.uniform1i(fsTex, 0);
+    gl.uniform1i(fsTex, this.id);
 }
