@@ -12,6 +12,8 @@ function Game(canvas, width, height, units) {
     this.mouse_attack = false;
 
     this.objects = [];
+
+    this.state = new GameState();
 }
 
 Game.prototype.init = function() {
@@ -62,14 +64,24 @@ Game.prototype.init = function() {
     // Build our shaders
     this.webgl.makeShader('main');
 
-    // Add our game objects
-    this.objects.push(new PlayerObject(this.webgl, ( this.width / 2 ) - ( ( this.units*4 ) / 2), this.height - this.units*4, 4, 4));
+    // Set our game state to the title screen
+    // (state.type, callback)
+    this.state.changeState(this.state.title, this.prepareTitle.bind(this));
 
     // Start the game loop
     window.requestAnimationFrame(this.loop.bind(this));
 }
 
 Game.prototype.update = function(time, delta) {
+
+    // Title-screen specific logic
+    if(this.state.getState() == this.state.title) {
+        if(this.mouse_attack) { // left click for now
+            this.state.changeState(this.state.playing, this.preparePlay.bind(this));
+        }
+    }
+
+    // Update all our objects.
     this.objects.forEach(function(obj, idx) {
         obj.update(time, delta);
     });
@@ -80,6 +92,7 @@ Game.prototype.render = function() {
 
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
+    // Render all our objects.
     this.objects.forEach(function(obj, idx) {
         obj.render();
     });
@@ -100,4 +113,21 @@ Game.prototype.keyPressed = function(keyCode) {
     return (this.keys.indexOf(keyCode) >= 0);
 }
 
+Game.prototype.prepareTitle= function() {
+    // Add our title screen objects
+    // TODO
+}
+
+Game.prototype.preparePlay= function() {
+    // Prevent attacking right away
+    this.mouse_attack = false;
+
+    // Add our player object to the game.
+    this.objects.push(new PlayerObject(this.webgl, ( this.width / 2 ) - ( ( this.units*4 ) / 2), this.height - this.units*4, 4, 4));
+}
+
+Game.prototype.prepareDead= function() {
+    // Add our dead state objects
+    // TODO
+}
 
