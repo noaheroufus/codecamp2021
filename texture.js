@@ -1,7 +1,9 @@
-function Texture(webgl, id, name, frame_width, frame_height, offset_x, offset_y) {
+function Texture(webgl, id, name, width, height, frame_width, frame_height, offset_x, offset_y) {
     this.webgl = webgl;
     this.id = id;
     this.name = name;
+    this.width = width;
+    this.height = height;
     this.frame_width = frame_width;
     this.frame_height = frame_height;
     this.offset_x = offset_x;
@@ -19,7 +21,6 @@ Texture.prototype.getTex = function() {
 
 Texture.prototype.load = function() {
     let gl = this.webgl.context;
-    let me = this
 
     var texSrc = new Image();
     texSrc.onload = function() {
@@ -34,9 +35,9 @@ Texture.prototype.load = function() {
 
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texSrc);
 
-        me.texture = {tex: tex, width: this.width, height: this.height};
-        me.ready = true;
-    };
+        this.texture = {tex: tex, width: this.width, height: this.height};
+        this.ready = true;
+    }.bind(this);
     texSrc.src = this.name;
 }
 
