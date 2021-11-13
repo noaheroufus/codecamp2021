@@ -14,6 +14,7 @@ function Game(canvas, width, height, units) {
     this.objects = [];
 
     this.state = new GameState();
+    this.inventory = new Inventory();
 }
 
 Game.prototype.init = function() {
@@ -128,7 +129,14 @@ Game.prototype.preparePlay= function() {
     for (let i=0; i<=200; i++) {
         this.objects.push(new TreeObject(this.webgl, (Math.random()*this.width)-(this.units*4), (Math.random()*this.height)-(this.units*4), 8, 8, 4, 8));
     }
+
     this.objects.sort((a,b) => (a.y+a.height > b.y+b.height) ? 1 : -1);
+
+    // TEMP:
+    this.objects.push(new ItemExtender(Math.random()*this.width, Math.random()*this.height));
+
+    // Add inventory bar.
+    this.objects.push(new Inventory(this.webgl.context));
 }
 
 Game.prototype.prepareDead= function() {
