@@ -7,7 +7,9 @@ function TreeObject(webgl, x, y, width, height) {
     this.height = height * game.units;
 
     this.color = {r: 255, g: 255, b: 255, a: 255};
-    this.texture = TEXTURES[TREE_1];
+    let version = Math.floor(Math.random()*3);
+    let options = [TREE_1, TREE_2, TREE_3];
+    this.texture = TEXTURES[options[version]];
 }
 
 TreeObject.prototype.update = function(time, delta) {
