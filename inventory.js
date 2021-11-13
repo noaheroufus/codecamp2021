@@ -10,10 +10,10 @@ function Inventory() {
     this.slots = 8;
     this.items = [];
 
-    this.items.push(new InventoryItem(this, TEXTURES[ITEM_EXTENDER]));
-    this.items.push(new InventoryItem(this, TEXTURES[ITEM_PASSCHANGE]));
-    this.items.push(new InventoryItem(this, TEXTURES[ITEM_POWER]));
-    this.items.push(new InventoryItem(this, TEXTURES[ITEM_CHANCHANGE]));
+    this.items.push(new InventoryItem(this, ITEM_EXTENDER));
+    this.items.push(new InventoryItem(this, ITEM_PASSCHANGE));
+    this.items.push(new InventoryItem(this, ITEM_POWER));
+    this.items.push(new InventoryItem(this, ITEM_CHANCHANGE));
 }
 
 Inventory.prototype.update = function(delta, time) {

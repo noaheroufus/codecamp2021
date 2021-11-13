@@ -5,7 +5,8 @@ function InventoryItem(inv, item_data) {
     this.padding_left = 8;
 
     this.inv = inv;
-    this.item_data = item_data;
+    this.version = item_data;
+    this.item_data = TEXTURES[item_data];
 }
 
 InventoryItem.prototype.update = function(time, delta) {
