@@ -7,9 +7,11 @@ function Description() {
 		this.titles.push("Weak WiFi");
 		this.titles.push("Black Hat Hacker");
 		this.titles.push("No Power");
+		this.titles.push("Wireless Interference");
 
 		this.descriptions = [];
 		this.descriptions.push("WiFi signal strength is low. Devices");
+		this.descriptions.push("TODO");
 		this.descriptions.push("TODO");
 		this.descriptions.push("TODO");
 }
