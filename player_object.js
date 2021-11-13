@@ -50,8 +50,11 @@ PlayerObject.prototype.update = function(time, delta) {
         this.x -= this.speed * delta;
     }
 
-    if(!this.performing_action && game.mouse_attack) {
-        this.attack();
+
+    if(game.state.getState() == game.state.playing) {
+        if(!this.performing_action && game.mouse_attack) {
+            this.attack();
+        }
     }
 
     this.keepInBounds();

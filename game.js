@@ -26,6 +26,9 @@ function Game(canvas, width, height, units) {
     this.descriptionItem.style.background = "red";
     this.descriptionItem.style.position = "absolute";
     this.canvas.appendChild(this.descriptionItem);
+
+    this.covered = 1.0;
+    this.victories = 0;
 }
 
 Game.prototype.init = function() {
@@ -93,32 +96,38 @@ Game.prototype.update = function(time, delta) {
         }
     } else if (this.state.getState() == this.state.playing) {
         this.forest.forEach(function(obj, idx) {
+            if(!obj) return;
             obj.update(time, delta);
         });
         this.objects.forEach(function(obj, idx) {
+            if(!obj) return;
             obj.update(time, delta);
         });
         if (this.mouse_attack) {
-            this.state.changeState(this.state.reveal, this.prepareReveal);
+            this.state.changeState(this.state.reveal, this.prepareReveal.bind(this));
             this.mouse_attack = false;
         }
     } else if (this.state.getState() == this.state.reveal) {
         this.forest.forEach(function(obj, idx) {
+            if(!obj) return;
             obj.update(time, delta);
         });
         this.objects.forEach(function(obj, idx) {
+            if(!obj) return;
             obj.update(time, delta);
         });
         if (this.mouse_attack) {
-            this.state.changeState(this.state.fight, this.prepareBeastFight);
+            this.state.changeState(this.state.fight, this.prepareBeastFight.bind(this));
             this.mouse_attack = false;
         }
     } else if (this.state.getState() == this.state.fight) {
         this.forest.forEach(function(obj, idx) {
+            if(!obj) return;
             obj.update(time, delta);
         });
         this.beast.update(time, delta);
         this.objects.forEach(function(obj, idx) {
+            if(!obj) return;
             obj.update(time, delta);
         });
         // Hover descriptions
@@ -128,29 +137,36 @@ Game.prototype.update = function(time, delta) {
             this.descriptionItem.innerHTML = this.descriptions.titles[this.beast.version];
         }
         if (this.mouse_attack) {
-            this.state.changeState(this.state.slay, this.prepareBeastSlay);
+            this.state.changeState(this.state.slay, this.prepareBeastSlay.bind(this));
             this.mouse_attack = false;
         }
     } else if (this.state.getState() == this.state.slay) {
         this.forest.forEach(function(obj, idx) {
+            if(!obj) return;
             obj.update(time, delta);
         });
         this.objects.forEach(function(obj, idx) {
+            if(!obj) return;
             obj.update(time, delta);
         });
         if (this.mouse_attack) {
-            this.state.changeState(this.state.victory, this.prepareVictory);
+            if(this.victories < 4) {
+                this.state.changeState(this.state.playing, function(){});
+            } else {
+                this.state.changeState(this.state.victory, this.prepareVictory.bind(this));
+            }
             this.mouse_attack = false;
         }
     } else if (this.state.getState() == this.state.victory) {
         if (this.mouse_attack) {
-            this.state.changeState(this.state.title, this.prepareTitle);
+            this.state.changeState(this.state.title, this.prepareTitle.bind(this));
             this.mouse_attack = false;
         }
     }
 
     // Misc
     this.objects.forEach(function(obj, idx) {
+        if(!obj) return;
         obj.update(time, delta);
     });
 }
@@ -160,23 +176,22 @@ Game.prototype.render = function() {
 
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    // Render all our objects.
-    this.objects.forEach(function(obj, idx) {
-        obj.render();
-    });
     if (this.state.getState() == this.state.title) {
         // Render title card
         // Render buttons
     } else if (this.state.getState() == this.state.playing) {
         this.forest.forEach(function(obj, idx) {
+            if(!obj) return;
             obj.render();
         });
     } else if (this.state.getState() == this.state.reveal) {
         this.forest.forEach(function(obj, idx) {
+            if(!obj) return;
             obj.render();
         });
     } else if (this.state.getState() == this.state.fight) {
         this.forest.forEach(function(obj, idx) {
+            if(!obj) return;
             obj.render();
         });
         if(this.beast) {
@@ -184,13 +199,21 @@ Game.prototype.render = function() {
         }
     } else if (this.state.getState() == this.state.slay) {
         this.forest.forEach(function(obj, idx) {
+            if(!obj) return;
             obj.render();
         });
     } else if (this.state.getState() == this.state.victory) {
         this.forest.forEach(function(obj, idx) {
+            if(!obj) return;
             obj.render();
         });
     }
+
+    // Render all our objects.
+    this.objects.forEach(function(obj, idx) {
+        if(!obj) return;
+        obj.render();
+    });
 }
 
 Game.prototype.loop = function(ts) {
@@ -211,6 +234,10 @@ Game.prototype.keyPressed = function(keyCode) {
 Game.prototype.prepareTitle= function() {
     // Add our title screen objects
     // TODO
+    this.covered = 1.0;
+    this.victories = 0;
+    this.objects = [];
+    this.forest = [];
 }
 
 Game.prototype.preparePlay= function() {
@@ -245,12 +272,20 @@ Game.prototype.preparePlay= function() {
 }
 
 Game.prototype.prepareReveal = function() {
+    this.covered -= 0.25;
+    for(let i = 0; i < this.forest.length; i++) {
+        let obj = this.forest[i];
+        if(obj && (obj.y+obj.height) > (this.height * this.covered)) {
+            this.forest[i] = undefined;
+        }
+    }
 }
 
 Game.prototype.prepareBeastFight = function() {
 }
 
 Game.prototype.prepareBeastSlay = function() {
+    this.victories += 1;
 }
 
 Game.prototype.prepareVictory = function() {
