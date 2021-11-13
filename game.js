@@ -337,7 +337,7 @@ Game.prototype.preparePlay= function() {
     this.objects.sort((a,b) => (a.y+a.height > b.y+b.height) ? 1 : -1);
 
     // Decide on Network Beast
-    this.beast = new NetworkBeastObject(this.webgl, this.width/2, this.height/2, 8, 8);
+    this.beast = new NetworkBeastObject(this.webgl, (this.width/2)-(this.units*4), (this.units*8), 8, 8);
     // TODO: Generate the appropriate Tools to find on the way
     this.tools = [];
 
