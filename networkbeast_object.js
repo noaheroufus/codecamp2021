@@ -7,8 +7,14 @@ function NetworkBeastObject(webgl, x, y, width, height) {
     this.height = height * game.units;
 
     this.color = {r: 255, g: 255, b: 255, a: 255};
-    this.version = [Math.floor(Math.random()*2)];
-    this.texture = TEXTURES[[BEAST_WEAKWIFI, BEAST_BLACKHATHACKER][this.version]];
+    this.beasts = [BEAST_WEAKWIFI, BEAST_BLACKHATHACKER, BEAST_NOPOWER, BEAST_INTERFERENCE];
+    this.version = [Math.floor(Math.random()*this.beasts.length)];
+    this.texture = TEXTURES[this.beasts[this.version]];
+}
+
+NetworkBeastObject.prototype.newTexture = function() {
+    this.version = [Math.floor(Math.random()*this.beasts.length)];
+    this.texture = TEXTURES[this.beasts[this.version]];
 }
 
 NetworkBeastObject.prototype.update = function(time, delta) {

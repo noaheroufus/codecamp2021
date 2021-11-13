@@ -17,6 +17,8 @@ const INV_BAR = 13;
 const ITEM_EXTENDER = 14;
 const BEAST_WEAKWIFI = 15;
 const BEAST_BLACKHATHACKER = 16;
+const BEAST_NOPOWER = 17;
+const BEAST_INTERFERENCE = 18;
 
 function LoadTextures(webgl) {
     // Player
@@ -45,4 +47,6 @@ function LoadTextures(webgl) {
     // Beasts
     TEXTURES[BEAST_WEAKWIFI] = new Texture(webgl, BEAST_WEAKWIFI, "./images/Beasts.png", 256, 64, 64, 64, 0, 0);
     TEXTURES[BEAST_BLACKHATHACKER] = new Texture(webgl, BEAST_BLACKHATHACKER, "./images/Beasts.png", 256, 64, 64, 64, 1, 0);
+    TEXTURES[BEAST_NOPOWER] = new Texture(webgl, BEAST_NOPOWER, "./images/Beasts.png", 256, 64, 64, 64, 2, 0);
+    TEXTURES[BEAST_INTERFERENCE] = new Texture(webgl, BEAST_INTERFERENCE, "./images/Beasts.png", 256, 64, 64, 64, 3, 0);
 }

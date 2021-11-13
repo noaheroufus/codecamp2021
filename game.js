@@ -285,6 +285,7 @@ Game.prototype.prepareBeastFight = function() {
 }
 
 Game.prototype.prepareBeastSlay = function() {
+    this.beast.newTexture();
     this.victories += 1;
 }
 
