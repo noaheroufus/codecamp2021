@@ -112,6 +112,26 @@ Game.prototype.update = function(time, delta) {
             if(!obj) return;
             obj.update(time, delta);
         });
+        if (this.within(this.mouse_x, this.mouse_y, this.inventory.x, this.inventory.y, this.inventory.width, this.inventory.height)) {
+            this.descriptionItem.style.display = "block";
+            this.descriptionItem.style.left = this.mouse_x-64+(this.canvasRect.left/2)+'px';
+            this.descriptionItem.style.top = this.mouse_y+this.canvasRect.top+'px';
+			let index = 0;
+			while (this.mouse_x > this.inventory.x+((this.units*4)*(index+1))) {
+					index++;
+					if (index > 3) break;
+			}
+			if (index <= 3) {
+            this.descriptionItem.innerHTML = '<strong>' +
+                this.descriptions.getItemTitle(this.inventory.items[index].version) +
+                '</strong><br /><br />' +
+                this.descriptions.getItemDescription(this.inventory.items[index].version);
+			} else {
+            	this.descriptionItem.style.display = "none";
+			}
+        } else {
+            this.descriptionItem.style.display = "none";
+        }
         if (this.mouse_attack) {
             this.state.changeState(this.state.reveal, this.prepareReveal.bind(this));
             this.mouse_attack = false;
@@ -125,6 +145,26 @@ Game.prototype.update = function(time, delta) {
             if(!obj) return;
             obj.update(time, delta);
         });
+        if (this.within(this.mouse_x, this.mouse_y, this.inventory.x, this.inventory.y, this.inventory.width, this.inventory.height)) {
+            this.descriptionItem.style.display = "block";
+            this.descriptionItem.style.left = this.mouse_x-64+(this.canvasRect.left/2)+'px';
+            this.descriptionItem.style.top = this.mouse_y+this.canvasRect.top+'px';
+			let index = 0;
+			while (this.mouse_x > this.inventory.x+((this.units*4)*(index+1))) {
+					index++;
+					if (index > 3) break;
+			}
+			if (index <= 3) {
+            this.descriptionItem.innerHTML = '<strong>' +
+                this.descriptions.getItemTitle(this.inventory.items[index].version) +
+                '</strong><br /><br />' +
+                this.descriptions.getItemDescription(this.inventory.items[index].version);
+			} else {
+            	this.descriptionItem.style.display = "none";
+			}
+        } else {
+            this.descriptionItem.style.display = "none";
+        }
         if (this.mouse_attack) {
             this.state.changeState(this.state.fight, this.prepareBeastFight.bind(this));
             this.mouse_attack = false;
