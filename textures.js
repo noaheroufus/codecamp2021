@@ -22,6 +22,9 @@ const BEAST_INTERFERENCE = 18;
 const ITEM_PASSCHANGE = 19;
 const ITEM_POWER = 20;
 const ITEM_CHANCHANGE = 21;
+const SCREEN_TITLE = 22;
+const SCREEN_LOSS = 23;
+const SCREEN_VICTORY = 24;
 
 function LoadTextures(webgl) {
     // Player
@@ -55,4 +58,9 @@ function LoadTextures(webgl) {
     TEXTURES[BEAST_BLACKHATHACKER] = new Texture(webgl, BEAST_BLACKHATHACKER, "./images/Beasts.png", 256, 64, 64, 64, 1, 0);
     TEXTURES[BEAST_NOPOWER] = new Texture(webgl, BEAST_NOPOWER, "./images/Beasts.png", 256, 64, 64, 64, 2, 0);
     TEXTURES[BEAST_INTERFERENCE] = new Texture(webgl, BEAST_INTERFERENCE, "./images/Beasts.png", 256, 64, 64, 64, 3, 0);
+
+    // Screens
+    TEXTURES[SCREEN_TITLE] = new Texture(webgl, SCREEN_TITLE, "./images/title.png", 1536, 512,1356, 512, 0, 0);
+    TEXTURES[SCREEN_LOSS] = new Texture(webgl, SCREEN_LOSS, "./images/death.png", 1536, 512, 1536, 512, 0, 0);
+    TEXTURES[SCREEN_VICTORY] = new Texture(webgl, SCREEN_VICTORY, "./images/victory.png", 1536, 512, 1536, 512, 0, 0);
 }

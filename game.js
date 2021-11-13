@@ -252,6 +252,8 @@ Game.prototype.prepareTitle= function() {
     this.victories = 0;
     this.objects = [];
     this.forest = [];
+
+    this.objects.push(new TitleScreen());
 }
 
 Game.prototype.preparePlay= function() {
@@ -307,11 +309,16 @@ Game.prototype.prepareBeastSlay = function() {
 }
 
 Game.prototype.prepareVictory = function() {
+    this.objects = [];
+
+    this.objects.push(new VictoryScreen());
 }
 
 Game.prototype.prepareDead= function() {
     // Add our dead state objects
-    // TODO
+    this.objects = [];
+
+    this.objects.push(new LossScreen());
 }
 
 Game.prototype.within = function(a_x, a_y, b_x, b_y, width, height) {
