@@ -56,6 +56,9 @@ Game.prototype.init = function() {
     this.webgl = new WebGl(this.canvas);
     this.webgl.init();
 
+    // Load textures
+    LoadTextures(this.webgl);
+
     // Build our shaders
     this.webgl.makeShader('main');
 

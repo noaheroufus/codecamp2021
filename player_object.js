@@ -15,12 +15,7 @@ function PlayerObject(webgl, x, y, width, height) {
     this.color = {r: 255, g: 255, b: 255, a: 255};
 
     //this.texture = new Texture(this.webgl, "./images/Player_Idle.png");
-    this.textures = [
-        // (webgl_context, id, location, frame_width, frame_height, frame_count, frame_rate, animate_only_once)
-        new TextureAnimated(this.webgl, 0, "./images/Player_Idle.png", 32, 32, 4, (1000/6), false),
-        new TextureAnimated(this.webgl, 1, "./images/Player_Attack.png", 32, 32, 4, (1000/6), true),
-    ];
-    this.texture = this.textures[0];
+    this.texture = TEXTURES[PLAYER_IDLE];
 }
 
 PlayerObject.prototype.keepInBounds = function() {
@@ -121,16 +116,16 @@ PlayerObject.prototype.render = function() {
 }
 
 PlayerObject.prototype.attack = function() {
-    this.textures[1].frame_index = 1; // Reset to 1
-    this.texture = this.textures[1];
+    this.texture = TEXTURES[PLAYER_ATTACK];
+    this.texture.frame_index = 1; // Reset to 1
 
     this.performing_action = true;
     this.attacking = true;
 }
 
 PlayerObject.prototype.idle = function() {
-    this.textures[0].frame_index = 1;
-    this.texture = this.textures[0];
+    this.texture = TEXTURES[PLAYER_IDLE];
+    this.texture.frame_index = 1; // Reset to 1
 
     this.performing_action = false;
     this.attacking = false;
